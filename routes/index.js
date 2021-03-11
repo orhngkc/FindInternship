@@ -1,9 +1,11 @@
-var express = require('express');
+var express = require('express')
+const conn = require('../conn')
 var router = express.Router();
 
 //contollers
 const registerContoller = require('../controllers/register')
 const loginController = require('../controllers/login')
+const addInternShip = require('../controllers/addInternShip')
 //middlewares
 const isSession = require('../middlewares/isSession')
 
@@ -43,13 +45,32 @@ router
     registerContoller
   );
 
+/* GET internship page. */
+router
+.route('/add-internship')
+.get(
+  isSession,
+  async (req, res) => {
+  res.render('add-internship', {
+    title: 'Bir Staj Yeri Ekle',
+    sess: req.isLogin
+  });
+});
+
+/* POST internship page. */
+router
+.route('/add-internship')
+.post(
+  addInternShip
+  );
+
 /* GET home page. */
 router
   .route('/')
   .get(
     isSession,
     async (req, res) => {
-      console.log(req.session)
+    // if (!req.isLogin) res.redirect('/sign-in')
     res.render('index', {
       title: 'Anasayfa',
       sess: req.isLogin
