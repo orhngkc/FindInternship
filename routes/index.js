@@ -1,31 +1,59 @@
 var express = require('express');
 var router = express.Router();
 
+//contollers
+const registerContoller = require('../controllers/register')
+const loginController = require('../controllers/login')
 //middlewares
-const registerMw = require('../middlewares/registerMw')
-const sessionMw = require('../middlewares/sessionMw')
+const isSession = require('../middlewares/isSession')
+
+
+/* Get login page. */
+router
+  .route('/sign-in')
+  .get(
+    async (req, res) => {
+    res.render('login', {
+      title: 'Giriş Yap'
+    });
+  });
+
 
 /* POST login page. */
-router.get('/sign-in', function(req, res) {
-  res.render('login', { title: 'FindInternship Giriş Yap' });
-});
-
-/* GET login page. */
-router.post('/sign-in', sessionMw);
+router
+  .route('/sign-in')
+  .post(
+     loginController
+  );
 
 /* GET register page. */
-router.get('/sign-up',function(req, res) {
-  res.render('register', { title: 'FindInternship Giriş Yap' });
-});
+router
+  .route('/sign-up')
+  .get(
+    async (req, res) => {
+    res.render('register', {
+      title: 'Kayıt Ol'
+    });
+  });
 
 /* POST register page. */
-router.post('/sign-up', registerMw);
+router
+  .route('/sign-up')
+  .post(
+    registerContoller
+  );
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index', { 
-    title: 'FindInternship Anasayfa' ,
+router
+  .route('/')
+  .get(
+    isSession,
+    async (req, res) => {
+      console.log(req.session)
+    res.render('index', {
+      title: 'Anasayfa',
+      sess: req.isLogin
+    });
   });
-});
 
 module.exports = router;
