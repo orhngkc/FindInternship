@@ -1,0 +1,80 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <!DOCTYPE html>
+<html lang="en">
+<body>
+            <div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content" style="margin-left: 0px!important">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">{{ department }} Stajları</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Page-header end -->
+            <div class="pcoded-inner-content">
+                <!-- Main-body start -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- Page-body start -->
+                        <div class="page-body breadcrumb-page">
+                            <!-- Simple Breadcrumb card start -->
+                            {% for x in detay %}
+                            <div class="card">
+                            <a href="/internship/{{ x.id }}">
+                                <div class="card-block" style="display: block!important">
+                                    <h5>{{ x.name }}</h5>
+                                    <div class="page-header-breadcrumb">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="#!">
+                                                    <i class="icofont icofont-home"></i>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">{{ x.add_at }} Tarafından Eklendi</a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">{{ x.salary }} TL Maaş </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">{{ x.point }} Puan verdi </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Page-body start -->
+                    </div>
+                </div>
+                <!-- Main-body start -->
+
+                <div id="styleSelector">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                            <!-- Main-body end -->
+                            <div id="styleSelector">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {# </div> #}
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <!DOCTYPE html>
+<html lang="en">
+
+<body>
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper"> 
+                    <div class="pcoded-content" style="margin-left: 0px!important">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">{{ detay.name}} |  Staj Yeri Hakkında</h5>
+                                            <p class="m-b-0">{{ detay.add_at}} tarafından {{ detay.created_at}} tarihinde eklendi.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+
+                                    <!-- Page body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Basic Form Inputs card start -->
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Detay</h5>
+                                                    </div>
+                                                    <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-xl-6">
+                                                                <h4 class="sub-title">{{ detay.name }}</h4>
+                                                                <p class="text-muted m-b-30">
+                                                                    {{ detay.adress }}
+                                                                </p>
+                                                                <blockquote class="blockquote">
+                                                                    <footer class="blockquote-footer">{{ detay.info }}
+                                                                    </footer>
+                                                                </blockquote>
+                                                            </div>
+                                                            <div class="col-sm-12 col-xl-6">
+                                                                <h4 class="sub-title">Önemli Bilgiler</h4>
+                                                                <dl class="dl-horizontal row">
+                                                                    <dt class="col-sm-3">Staj Alanı</dt>
+                                                                    <dd class="col-sm-9">{{ department }}</dd>
+                                                                    <dt class="col-sm-3">Maaş</dt>
+                                                                    <dd class="col-sm-9">{{ detay.salary }} TL</dd>
+                                                                    <dt class="col-sm-3">Çalışan Sayısı</dt>
+                                                                    <dd class="col-sm-9">{{ detay.num }}</dd>
+                                                                    <dd class="col-sm-12 col-sm-offset-3"></dd>
+                                                                    <dt class="col-sm-3">Kabul Şekli</dt>
+                                                                    <dd class="col-sm-9">{{ detay.acc }}</dd>
+                                                                    <dt class="col-sm-3 text-truncate">Stajyer Puanı</dt>
+                                                                    <dd class="col-sm-9">{{ detay.point }}</dd>
+                                                                </dl>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                </div>
+                                                <!-- Basic Form Inputs card end -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Page body end -->
+                                </div>
+                            </div>
+                            <!-- Main-body end -->
+                            <div id="styleSelector">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {# </div> #}
+</body>
+
+</html>
+{% endblock %}

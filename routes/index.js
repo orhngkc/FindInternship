@@ -6,9 +6,14 @@ var router = express.Router();
 const registerContoller = require('../controllers/register')
 const loginController = require('../controllers/login')
 const addInternShip = require('../controllers/addInternShip')
+const logout = require('../controllers/logout')
 //middlewares
 const isSession = require('../middlewares/isSession')
-
+const queriesMw = require('../middlewares/queries')
+const childMw = require('../middlewares/child')
+const singleMw = require('../middlewares/single')
+//consts
+const dep = require('../const/departments')
 
 /* Get login page. */
 router
@@ -16,7 +21,8 @@ router
   .get(
     async (req, res) => {
     res.render('login', {
-      title: 'Giriş Yap'
+      title: 'Giriş Yap',
+      msg: req.false
     });
   });
 
@@ -32,6 +38,7 @@ router
 router
   .route('/sign-up')
   .get(
+    isSession,
     async (req, res) => {
     res.render('register', {
       title: 'Kayıt Ol'
@@ -51,9 +58,43 @@ router
 .get(
   isSession,
   async (req, res) => {
+   if (!req.isLogin) res.redirect('/sign-in')
   res.render('add-internship', {
     title: 'Bir Staj Yeri Ekle',
     sess: req.isLogin
+  });
+});
+
+/* GET detay page. */
+router
+.route(['/detay/:slug'])
+.get(
+  isSession,
+  childMw,
+  async (req, res) => {
+    console.log(dep[req.params.slug])
+   if (!req.isLogin) res.redirect('/sign-in')
+  res.render('detay', {
+    title: dep[req.params.slug - 2] + ' Staj Yerleri',
+    sess: req.isLogin,
+    department: dep[req.params.slug - 2],
+    detay: req.interns
+  });
+});
+
+/* GET single page. */
+router
+.route(['/internship/:slug'])
+.get(
+  isSession,
+  singleMw,
+  async (req, res) => {
+   if (!req.isLogin) res.redirect('/sign-in')
+  res.render('single', {
+    title: req.interns[0].name,
+    sess: req.isLogin,
+    department: dep[req.params.slug - 2],
+    detay: req.interns[0]
   });
 });
 
@@ -64,17 +105,38 @@ router
   addInternShip
   );
 
+/* GET quit page. */
+router
+.route('/quit')
+.get(
+  logout.logout
+  );
+
 /* GET home page. */
 router
   .route('/')
   .get(
     isSession,
+    queriesMw,
     async (req, res) => {
-    // if (!req.isLogin) res.redirect('/sign-in')
+    if (!req.isLogin) res.redirect('/sign-in')
+    console.log(req.all[0].xCount , 'count')
     res.render('index', {
       title: 'Anasayfa',
-      sess: req.isLogin
+      sess: req.isLogin,
+      sessInfo: req.session,
+      lastInternships: req.interns,
+      allx: req.all[0].xCount,
+      ally: req.ally[0].yCount,
+      maas:  req.maas[0].maas ,
+      test: req.internss
     });
   });
+
+  router.use(function (req, res, next) {
+    isSession,
+    res.status(404).render('404');
+  })
+  
 
 module.exports = router;

@@ -13,8 +13,13 @@ const registerContoller = async (req, res) => {
         
         conn.query('INSERT INTO users SET ?', data, function (error, results, fields) {
             if (error) throw error;
-            else console.log(results); res.send('ok!'); res.redirect('/sign-in?register=success')
-          });
+            else {
+                console.log(results); res.redirect('/sign-in?register=success')
+ 
+            }        
+         });
+    }else{
+        res.redirect('/sign-up?false-repass')
     }
 
 }

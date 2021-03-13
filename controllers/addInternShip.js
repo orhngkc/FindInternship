@@ -9,7 +9,10 @@ const addInternShip = async (req, res) => {
             adress: req.body.adress,
             info: req.body.info,
             salary: req.body.salary,
-            point: 0,
+            point: req.body.point,
+            num: req.body.num,
+            acc: req.body.accept,
+            add_at: req.session.username
         }
 
         

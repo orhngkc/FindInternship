@@ -10,9 +10,18 @@ const loginController = async (req, res) => {
     conn.query('SELECT * FROM users WHERE email = ? AND password = ?', data, function (error, results, fields) {
         if (error) throw error;
         else {
+            console.log('burda')
+            console.log(results.length)
+            if(results.length !== 0){
             req.session.uniqId = 'VAR'
-            console.log(req.session.uniqId);
+            req.session.username = results[0].username
+            req.session.email = results[0].email
+
             res.redirect('/?login=success')
+          }else{
+            req.false = 'Kullanıcı adı veya şifreniz yanlış'
+            res.redirect('/sign-in?false');
+          }
         }
       });
 }
