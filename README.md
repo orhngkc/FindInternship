@@ -1,7 +1,9 @@
 "# FindInternship" 
 
-git clone https://github.com/orhngkc/FindInternship.git
+1- cmd -> git clone https://github.com/orhngkc/FindInternship.git
 
-npm install
+2- npm install
 
-pm2 start ./bin/www
+3- npm i pm2 -g
+
+4- pm2 start ./bin/www --watch
