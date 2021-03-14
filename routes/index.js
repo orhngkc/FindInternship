@@ -73,13 +73,16 @@ router
   childMw,
   async (req, res) => {
     console.log(dep[req.params.slug])
-   if (!req.isLogin) res.redirect('/sign-in')
+   if (req.isLogin == false) {
+    res.redirect('/sign-in')
+  }else{
   res.render('detay', {
     title: dep[req.params.slug - 2] + ' Staj Yerleri',
     sess: req.isLogin,
     department: dep[req.params.slug - 2],
     detay: req.interns
   });
+}
 });
 
 /* GET single page. */
@@ -89,13 +92,16 @@ router
   isSession,
   singleMw,
   async (req, res) => {
-   if (!req.isLogin) res.redirect('/sign-in')
+   if (req.isLogin == false) {
+    res.redirect('/sign-in')
+  }else{
   res.render('single', {
     title: req.interns[0].name,
     sess: req.isLogin,
     department: dep[req.params.slug - 2],
     detay: req.interns[0]
   });
+}
 });
 
 /* POST internship page. */
@@ -119,18 +125,22 @@ router
     isSession,
     queriesMw,
     async (req, res) => {
-    if (!req.isLogin) res.redirect('/sign-in')
-    console.log(req.all[0].xCount , 'count')
-    res.render('index', {
-      title: 'Anasayfa',
-      sess: req.isLogin,
-      sessInfo: req.session,
-      lastInternships: req.interns,
-      allx: req.all[0].xCount,
-      ally: req.ally[0].yCount,
-      maas:  req.maas[0].maas ,
-      test: req.internss
-    });
+    if (req.isLogin == false) {
+      res.redirect('/sign-in')
+    }else{
+      console.log(req.all[0].xCount , 'count')
+      res.render('index', {
+        title: 'Anasayfa',
+        sess: req.isLogin,
+        sessInfo: req.session,
+        lastInternships: req.interns,
+        allx: req.all[0].xCount,
+        ally: req.ally[0].yCount,
+        maas:  req.maas[0].maas ,
+        test: req.internss
+      });
+    }
+   
   });
 
   router.use(function (req, res, next) {
