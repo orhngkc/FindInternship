@@ -58,11 +58,14 @@ router
 .get(
   isSession,
   async (req, res) => {
-   if (!req.isLogin) res.redirect('/sign-in')
-  res.render('add-internship', {
-    title: 'Bir Staj Yeri Ekle',
-    sess: req.isLogin
-  });
+   if (req.isLogin == false){ 
+     res.redirect('/sign-in')
+   }else{
+     res.render('add-internship', {
+       title: 'Bir Staj Yeri Ekle',
+       sess: req.isLogin
+     });
+   }
 });
 
 /* GET detay page. */
